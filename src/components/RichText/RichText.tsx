@@ -1,11 +1,14 @@
 import { RichTextField } from "@prismicio/client";
-import { JSXMapSerializer, PrismicLink, PrismicRichText } from "@prismicio/react";
-
+import {
+  JSXMapSerializer,
+  PrismicLink,
+  PrismicRichText,
+} from "@prismicio/react";
 
 export const richTextComponents: JSXMapSerializer = {
   label: ({ node, children }) => {
-    if (node.data.label === 'codespan') {
-      return <code>{children}</code>
+    if (node.data.label === "codespan") {
+      return <code>{children}</code>;
     }
   },
   heading1: ({ children }) => (
@@ -15,7 +18,9 @@ export const richTextComponents: JSXMapSerializer = {
   heading3: ({ children }) => <h3 className="font-bold text-lg">{children}</h3>,
   paragraph: ({ children }) => <p>{children}</p>,
   hyperlink: ({ children, node }) => (
-    <PrismicLink field={node.data} className="font-bold underline">{children}</PrismicLink>
+    <PrismicLink field={node.data} className="font-bold underline">
+      {children}
+    </PrismicLink>
   ),
 };
 

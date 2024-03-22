@@ -18,7 +18,11 @@ const Hero = ({ slice }: HeroProps): JSX.Element => {
       data-slice-variation={slice.variation}
       className="flex flex-col gap-4 max-w-3xl w-full"
     >
-      <PrismicNextImage field={slice.primary.image} sizes="100vw" className="w-full max-w-[100px] max-h-full rounded-md object-cover" />
+      <PrismicNextImage
+        field={slice.primary.image}
+        sizes="100vw"
+        className="w-full max-w-[100px] max-h-full rounded-md object-cover"
+      />
       <div>
         <h1>
           <PrismicText field={slice.primary.title} />

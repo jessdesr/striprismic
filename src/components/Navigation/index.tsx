@@ -1,1 +1,1 @@
-export { default } from "./RichText";
+export * from "./Navigation";

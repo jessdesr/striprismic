@@ -1,0 +1,98 @@
+{
+  "format": "page",
+  "id": "site_details",
+  "json": {
+    "Main": {
+      "banner_image": {
+        "type": "Image",
+        "config": {
+          "constraint": {},
+          "thumbnails": [],
+          "label": "Banner Image"
+        }
+      },
+      "banner_mobile": {
+        "type": "Image",
+        "config": {
+          "constraint": {},
+          "thumbnails": [],
+          "label": "Banner Image (Mobile)"
+        }
+      },
+      "social_media": {
+        "type": "Group",
+        "config": {
+          "fields": {
+            "icon": {
+              "type": "Image",
+              "config": {
+                "constraint": {},
+                "thumbnails": [],
+                "label": "icon"
+              }
+            },
+            "name": {
+              "type": "Select",
+              "config": {
+                "options": [
+                  "Twitter",
+                  "Facebook",
+                  "Patreon",
+                  "Instagram",
+                  "Personal"
+                ],
+                "label": "Name"
+              }
+            },
+            "url": {
+              "type": "Link",
+              "config": {
+                "allowTargetBlank": true,
+                "label": "URL",
+                "select": null
+              }
+            }
+          },
+          "label": "Social Media"
+        }
+      },
+      "bg_change_date": {
+        "type": "Date",
+        "config": {
+          "label": "Background Change Date",
+          "placeholder": "After this date all pages will have the tan background"
+        }
+      }
+    },
+    "SEO & Metadata": {
+      "meta_description": {
+        "config": {
+          "label": "Meta Description",
+          "placeholder": "A brief summary of the page"
+        },
+        "type": "Text"
+      },
+      "meta_image": {
+        "config": {
+          "constraint": {
+            "height": 1260,
+            "width": 2400
+          },
+          "label": "Meta Image",
+          "thumbnails": []
+        },
+        "type": "Image"
+      },
+      "meta_title": {
+        "config": {
+          "label": "Meta Title",
+          "placeholder": "A title of the page used for social media and search engines"
+        },
+        "type": "Text"
+      }
+    }
+  },
+  "label": "Site Details",
+  "repeatable": false,
+  "status": true
+}

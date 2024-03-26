@@ -1,6 +1,8 @@
 {
-  "libraries": ["./src/slices"],
+  "libraries": [
+    "./src/slices"
+  ],
   "adapter": "@slicemachine/adapter-next",
-  "repositoryName": "brambles",
+  "repositoryName": "blind-alley",
   "localSliceSimulatorURL": "http://localhost:3000/slice-simulator"
 }

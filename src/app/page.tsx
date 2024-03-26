@@ -5,8 +5,6 @@ import * as prismic from "@prismicio/client";
 
 import { createClient } from "@/prismicio";
 import { components } from "@/slices";
-import { Navigation } from "@/components/Navigation";
-import { PostCard } from "@/components/PostCard";
 
 // This component renders your homepage.
 //
@@ -16,16 +14,21 @@ import { PostCard } from "@/components/PostCard";
 
 export async function generateMetadata(): Promise<Metadata> {
   const client = createClient();
-  const home = await client.getByUID("page", "home");
+  const home = await client.getSingle("site_details");
+
+  // return {
+  //   title: prismic.asText(home.data.title),
+  //   description: home.data.meta_description,
+  //   openGraph: {
+  //     title: home.data.meta_title ?? undefined,
+  //     images: [{ url: home.data.meta_image.url ?? "" }],
+  //   },
+  // };
 
   return {
-    title: prismic.asText(home.data.title),
-    description: home.data.meta_description,
-    openGraph: {
-      title: home.data.meta_title ?? undefined,
-      images: [{ url: home.data.meta_image.url ?? "" }],
-    },
-  };
+    title: "Blind Alley",
+    description: "A sit about stuff"
+  }
 }
 
 export default async function Index() {
@@ -33,30 +36,19 @@ export default async function Index() {
   const client = createClient();
 
   // Fetch the content of the home page from Prismic
-  const home = await client.getByUID("page", "home");
+  const latestComic = await client.getAllByType("comic", {
+    orderings: [{ field: "my.comic.publish_date", direction: "desc" }],
+    limit: 1
+  });
 
   // Get all of the blog_post documents created on Prismic ordered by publication date
-  const posts = await client.getAllByType("blog_post", {
-    orderings: [
-      { field: "my.blog_post.publication_date", direction: "desc" },
-      { field: "document.first_publication_date", direction: "desc" },
-    ],
-  });
+  const posts = await client.getSingle("site_details");
 
   return (
     <>
-      <Navigation client={client} />
-
-      <SliceZone slices={home.data.slices} components={components} />
-
-      {/* Map over each of the blog posts created and display a `PostCard` for it */}
-      <section className="grid grid-cols-1 gap-8 max-w-3xl w-full">
-        {posts.map((post) => (
-          <PostCard key={post.id} post={post} />
-        ))}
-      </section>
-
-      <Navigation client={client} />
+      <div className="bg-tan w-full h-full">
+        {JSON.stringify(latestComic)}
+      </div>
     </>
   );
 }

@@ -15,7 +15,7 @@ import { Url } from "url";
 interface NavProps {
   label: string;
   links: {
-    prev?: any;
+    previous?: any;
     next?: any;
     first?: any;
     latest?: any;
@@ -31,17 +31,17 @@ const CustomLink = ({ href, children }: { href: Url, children: React.ReactNode }
 }
 
 const Nav = ({ label, links = {} }: NavProps) => {
-  const { prev, next, first, latest } = links;
+  const { previous, next, first, latest } = links;
   const router = useRouter();
   useKeyPress("ArrowRight", () => { next && router.push(next) })
-  useKeyPress("ArrowLeft", () => { prev && router.push(prev) })
+  useKeyPress("ArrowLeft", () => { previous && router.push(previous) })
   return (
     <div className="flex flex-wrap items-center w-full transition-transform justify-evenly">
       <CustomLink href={first}>
         <ChevronDoubleLeftIcon className="h-10" />
       </CustomLink>
 
-      <CustomLink href={prev}>
+      <CustomLink href={previous}>
         <ChevronLeftIcon className="h-10" />
       </CustomLink>
 
@@ -54,11 +54,6 @@ const Nav = ({ label, links = {} }: NavProps) => {
       <CustomLink href={latest}>
         <ChevronDoubleRightIcon className="h-10" />
       </CustomLink>
-
-      {/* <img src={firstIcon} className="h-4" />
-      <img src={prevIcon} className="h-4" />
-      <img src={nextIcon} className="h-4" />
-      <img src={latestIcon} className="h-4" /> */}
     </div>
   );
 };

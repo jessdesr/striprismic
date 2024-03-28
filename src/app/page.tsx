@@ -1,10 +1,13 @@
 import { Metadata } from "next";
 
-import { SliceZone } from "@prismicio/react";
+import { PrismicRichText, SliceZone } from "@prismicio/react";
 import * as prismic from "@prismicio/client";
 
 import { createClient } from "@/prismicio";
 import { components } from "@/slices";
+import { PrismicNextImage } from "@prismicio/next";
+import Nav from "@/components/Nav/Nav";
+import { formatDateString } from "@/utils/formatDateString";
 
 // This component renders your homepage.
 //
@@ -27,7 +30,7 @@ export async function generateMetadata(): Promise<Metadata> {
 
   return {
     title: "Blind Alley",
-    description: "A sit about stuff"
+    description: "A site about stuff"
   }
 }
 
@@ -38,17 +41,44 @@ export default async function Index() {
   // Fetch the content of the home page from Prismic
   const latestComic = await client.getAllByType("comic", {
     orderings: [{ field: "my.comic.publish_date", direction: "desc" }],
+    limit: 2
+  });
+  const firstComic = await client.getAllByType("comic", {
+    orderings: [{ field: "my.comic.publish_date", direction: "asc" }],
     limit: 1
   });
+
+  console.log({ latestComic: latestComic[0], firstComic: firstComic[0] });
+  const comicDocument = latestComic[0];
+
+  console.log({ comicDocument });
+
+  const { blog_post, desktop, mobile, publish_date } = comicDocument.data;
+
+  const formattedDate = publish_date && formatDateString(publish_date.toString());
+
 
   // Get all of the blog_post documents created on Prismic ordered by publication date
   const posts = await client.getSingle("site_details");
 
   return (
     <>
-      <div className="bg-tan w-full h-full">
-        {JSON.stringify(latestComic)}
+      <div
+        className={`${blog_post.length > 0 ? "max-w-xl m-auto" : ""
+          }`}
+      >
+        <PrismicNextImage field={desktop} className="hidden md:block" />
+        <PrismicNextImage field={mobile} className="hidden maxSm:block" />
       </div>
+      {blog_post.length > 0 && (
+        <div className="py-4 mx-16 font-custom">
+          <PrismicRichText field={blog_post} />
+        </div>
+      )}
+      <Nav label={formattedDate || ""} links={{
+        first: firstComic[0].url, prev: latestComic[1].url
+      }} />
+
     </>
   );
 }

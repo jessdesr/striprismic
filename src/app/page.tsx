@@ -56,7 +56,7 @@ export default async function Index() {
     limit: 1
   });
 
-  const { blog_post, desktop, mobile, publish_date } = comicDocument.data;
+  const { blog_post, desktop, mobile, publish_date, thumbnail } = comicDocument.data;
 
   const formattedDate = publish_date && formatDateString(publish_date.toString());
 

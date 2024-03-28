@@ -4,6 +4,14 @@ import "./styles.css";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { asDate } from "@prismicio/client";
+import { Didact_Gothic } from "next/font/google";
+
+const didact = Didact_Gothic({
+  weight: '400',
+  display: 'swap',
+  subsets: ["latin"],
+  variable: '--font-didact-gothic',
+})
 
 export default async function RootLayout({
   children,
@@ -12,17 +20,8 @@ export default async function RootLayout({
   children: React.ReactNode;
   params: { uid: string }
 }>) {
-  const client = createClient();
-
-  console.log({ params });
-  // const comic = url !== "" ? await client.getByUID("comic", url) : undefined;
-  // const date = comic && asDate(comic.data.publish_date)
-
-  const siteDetails = await client.getSingle("site_details");
-  const bgChangeDate = asDate(siteDetails.data.bg_change_date);
-
   return (
-    <html lang="en">
+    <html lang="en" className={`${didact.variable}`}>
       <head>
         <link
           rel="icon"

@@ -23,16 +23,15 @@ export async function generateMetadata({
     .catch(() => notFound());
 
   return {
-    // title: prismic.asText(page.data.title),
-    // description: page.data.meta_description,
-    // openGraph: {
-    //   title: page.data.meta_title || undefined,
-    //   images: [
-    //     {
-    //       url: page.data.meta_image.url || "",
-    //     },
-    //   ],
-    // },
+    title: `${prismic.asText(page.data.title)} - Blind Alley`,
+    openGraph: {
+      title: prismic.asText(page.data.title) || undefined,
+      images: [
+        {
+          url: page.data.mobile.url || "",
+        },
+      ],
+    },
   };
 }
 

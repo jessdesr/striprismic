@@ -15,6 +15,7 @@ module.exports = {
       },
       fontFamily: {
         custom: ["DS Regular", "serif"],
+        sans: ['var(--font-didact-gothic)']
       },
     },
   },

@@ -20,20 +20,19 @@ export const Comic = ({ comicData, previous, next, latest, first }: ComicProps):
 
   return (
     <>
-      <div
-        className={`${blog_post.length > 0 ? "max-w-xl m-auto" : ""
-          }`}
-      >
-        <PrismicNextImage field={desktop} className="hidden md:block" fallbackAlt="" />
-        <PrismicNextImage field={mobile} className="hidden maxSm:block" fallbackAlt="" />
-      </div>
-      {
-        blog_post.length > 0 && (
-          <div className="py-4 mx-16 font-custom">
-            <PrismicRichText field={blog_post} />
-          </div>
-        )
-      }
+      <div>
+        <div
+          className={`${blog_post.length > 0 ? "max-w-xl m-auto" : ""
+            }`}
+        >
+          <PrismicNextImage field={desktop} className="hidden md:block" fallbackAlt="" />
+          <PrismicNextImage field={mobile} className="hidden maxSm:block" fallbackAlt="" />
+        </div>
+        <div className="py-4 mx-16 font-custom">
+          {
+            blog_post.length > 0 && (<PrismicRichText field={blog_post} />)}
+        </div>
+      </div >
       <Nav label={formattedDate || ""} links={{
         first, previous, latest, next
       }} />

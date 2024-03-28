@@ -56,21 +56,14 @@ export default async function Index() {
     limit: 1
   });
 
-
-
   const { blog_post, desktop, mobile, publish_date } = comicDocument.data;
 
   const formattedDate = publish_date && formatDateString(publish_date.toString());
-
-
-  // Get all of the blog_post documents created on Prismic ordered by publication date
-  const posts = await client.getSingle("site_details");
 
   const date = prismic.asDate(publish_date)
 
   const siteDetails = await client.getSingle("site_details");
   const bgChangeDate = prismic.asDate(siteDetails.data.bg_change_date);
-
 
   return (
     <Layout client={client} tanBackground={!!date && !!bgChangeDate && date < bgChangeDate}>

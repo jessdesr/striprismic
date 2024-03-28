@@ -18,8 +18,8 @@ export const Layout = async ({
   return (
     <div
       className={`${className} ${tanBackground
-          ? "bg-white"
-          : "bg-tan"
+        ? "bg-white"
+        : "bg-tan"
         } overflow-auto`}
     >
       <div className="flex flex-col h-screen py-4 mx-auto max-w-screen-2xl">
@@ -47,7 +47,6 @@ export const Layout = async ({
                 >
                   <PrismicNextImage
                     className="w-10"
-                    style={{ filter: "hue-rotate(20deg)" }}
                     field={smInfo.icon}
                     fallbackAlt=""
                   />

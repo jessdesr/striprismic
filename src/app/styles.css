@@ -1,11 +1,12 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-@import url("https://fonts.googleapis.com/css2?family=Didact+Gothic&display=swap");
 @layer base {
+  html {
+    @apply text-gray-900;
+  }
   p {
-    @apply py-4 block mx-0;
-    font-family: "Didact Gothic", sans-serif;
+    @apply py-4 block mx-0 font-sans;
   }
   p a {
     @apply text-blue-500;

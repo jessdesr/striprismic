@@ -20,7 +20,7 @@ export const Archive = ({ comics }: { comics: ComicDocument[] }): JSX.Element =>
   return (
     <>
       <div className="grid grid-cols-12 my-4">
-        <BackButton className="col-span-3" />
+        <BackButton className="col-span-3 text-start pl-8" />
         <div className="col-span-6 flex">
           <div className="flex justify-end flex-1">
             <span className="mr-2">Gallery</span>

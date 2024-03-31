@@ -5,19 +5,19 @@ import Link from "next/link";
 export const Layout = async ({
   className,
   client,
-  tanBackground,
+  whiteBackground,
   children,
 }: {
   className?: string;
   client: Client<Content.AllDocumentTypes>;
-  tanBackground: boolean;
+  whiteBackground: boolean;
   children: React.ReactNode;
 }): Promise<JSX.Element> => {
   const siteDetails = await client.getSingle("site_details");
 
   return (
     <div
-      className={`${className} ${tanBackground
+      className={`${className} ${whiteBackground
         ? "bg-white"
         : "bg-tan"
         } overflow-auto`}

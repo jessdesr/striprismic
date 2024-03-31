@@ -3,6 +3,7 @@ import { ComicDocumentData } from "../../../prismicio-types";
 import { PrismicNextImage } from "@prismicio/next";
 import Nav from "../Nav/Nav";
 import { formatDateString } from "@/utils/formatDateString";
+import Link from "next/link";
 
 interface ComicProps {
   comicData: ComicDocumentData,
@@ -12,6 +13,9 @@ interface ComicProps {
   next?: string | null,
 };
 
+const ImageGroup = ({ desktop, mobile }: Pick<ComicDocumentData, "desktop" | "mobile">) => (<>
+  <PrismicNextImage field={desktop} className="hidden md:block" fallbackAlt="" placeholder="blur" blurDataURL="https://img.freepik.com/free-vector/exotic-fish-set_1284-16546.jpg" />
+  <PrismicNextImage field={mobile} className="hidden maxSm:block" fallbackAlt="" /></>)
 
 export const Comic = ({ comicData, previous, next, latest, first }: ComicProps): JSX.Element => {
 
@@ -20,19 +24,20 @@ export const Comic = ({ comicData, previous, next, latest, first }: ComicProps):
 
   return (
     <>
-      <div>
-        <div
-          className={`${blog_post.length > 0 ? "max-w-xl m-auto" : ""
-            }`}
-        >
-          <PrismicNextImage field={desktop} className="hidden md:block" fallbackAlt="" />
-          <PrismicNextImage field={mobile} className="hidden maxSm:block" fallbackAlt="" />
-        </div>
-        <div className="py-4 mx-16 font-custom">
-          {
-            blog_post.length > 0 && (<PrismicRichText field={blog_post} />)}
-        </div>
-      </div >
+      <div
+        className={`${blog_post.length > 0 ? "max-w-xl m-auto" : ""
+          }`}
+      >
+        {next ? (
+          <Link href={next}>
+            <ImageGroup desktop={desktop} mobile={mobile} />
+          </Link>
+        ) : (<ImageGroup desktop={desktop} mobile={mobile} />)}
+      </div>
+      <div className="py-4 mx-16 font-custom">
+        {
+          blog_post.length > 0 && (<PrismicRichText field={blog_post} />)}
+      </div>
       <Nav label={formattedDate || ""} links={{
         first, previous, latest, next
       }} />

@@ -66,7 +66,7 @@ export default async function Index() {
   const bgChangeDate = prismic.asDate(siteDetails.data.bg_change_date);
 
   return (
-    <Layout client={client} tanBackground={!!date && !!bgChangeDate && date < bgChangeDate}>
+    <Layout client={client} whiteBackground={!!date && !!bgChangeDate && date < bgChangeDate}>
       <div
         className={`${blog_post.length > 0 ? "max-w-xl m-auto" : ""
           }`}

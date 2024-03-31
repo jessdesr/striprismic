@@ -71,7 +71,7 @@ export default async function Page({ params }: { params: Params }) {
 
 
   return (
-    <Layout client={client} tanBackground={!!date && !!bgChangeDate && date < bgChangeDate}>
+    <Layout client={client} whiteBackground={!!date && !!bgChangeDate && date < bgChangeDate}>
       <Comic
         comicData={comic.data}
         first={firstComic[0].uid !== comic.uid ? firstComic[0]?.url : undefined}

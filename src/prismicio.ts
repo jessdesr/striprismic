@@ -13,13 +13,8 @@ export const repositoryName =
  */
 const routes: prismic.ClientConfig["routes"] = [
   {
-    type: "page",
-    uid: "home",
-    path: "/",
-  },
-  {
-    type: "blog_post",
-    path: "/blog/:uid",
+    type: "comic",
+    path: "/:uid",
   },
 ];
 
@@ -37,6 +32,7 @@ export const createClient = (config: prismicNext.CreateClientConfig = {}) => {
         ? { next: { tags: ["prismic"] }, cache: "force-cache" }
         : { next: { revalidate: 5 } },
     ...config,
+    accessToken: process.env.PRISMIC_ACCESS_TOKEN
   });
 
   prismicNext.enableAutoPreviews({ client });

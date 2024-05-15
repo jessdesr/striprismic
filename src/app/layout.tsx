@@ -1,28 +1,39 @@
-import { PrismicPreview } from "@prismicio/next";
-import { repositoryName } from "@/prismicio";
+import { PrismicNextImage, PrismicNextLink, PrismicPreview } from "@prismicio/next";
+import { repositoryName, createClient } from "@/prismicio";
 import "./styles.css";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
+import { asDate } from "@prismicio/client";
+import { Didact_Gothic } from "next/font/google";
 
-export default function RootLayout({
+const didact = Didact_Gothic({
+  weight: '400',
+  display: 'swap',
+  subsets: ["latin"],
+  variable: '--font-didact-gothic',
+})
+
+export default async function RootLayout({
   children,
+  params
 }: Readonly<{
   children: React.ReactNode;
+  params: { uid: string }
 }>) {
   return (
-    <html lang="en">
+    <html lang="en" className={`${didact.variable}`}>
       <head>
         <link
           rel="icon"
           type="image/png"
           sizes="any"
-          href="https://prismic.io/favicon.ico"
+          href="./assets/icon.png"
         />
       </head>
-      <body className="flex flex-col items-center bg-stone-50">
-        <div className="bg-white max-w-7xl min-h-screen border-x border-solid border-gray-200 p-12 w-full flex flex-col gap-20 items-center text-slate-700">
-          {children}
-          <PrismicPreview repositoryName={repositoryName} />
-        </div>
+      <body>
+        {children}
+        <PrismicPreview repositoryName={repositoryName} />
       </body>
-    </html>
+    </html >
   );
 }

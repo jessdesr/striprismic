@@ -14,11 +14,19 @@
           "placeholder": "Comic Number/Title"
         }
       },
+      "chapter": {
+        "type": "Link",
+        "config": {
+          "label": "Chapter",
+          "select": "document",
+          "customtypes": ["chapter"]
+        }
+      },
       "uid": {
         "type": "UID",
         "config": {
           "label": "Unique Identifier",
-          "placeholder": "Used for URL (blind-alley.com/UID)"
+          "placeholder": "Used for URL (website.com/UID)"
         }
       },
       "publish_date": {
@@ -33,15 +41,7 @@
         "config": {
           "constraint": {},
           "thumbnails": [],
-          "label": "Desktop Size (Default)"
-        }
-      },
-      "mobile": {
-        "type": "Image",
-        "config": {
-          "constraint": {},
-          "thumbnails": [],
-          "label": "Mobile Size"
+          "label": "Comic Image"
         }
       },
       "thumbnail": {

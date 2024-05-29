@@ -20,19 +20,14 @@ export async function generateMetadata(): Promise<Metadata> {
   const client = createClient();
   const home = await client.getSingle("site_details");
 
-  // return {
-  //   title: prismic.asText(home.data.title),
-  //   description: home.data.meta_description,
-  //   openGraph: {
-  //     title: home.data.meta_title ?? undefined,
-  //     images: [{ url: home.data.meta_image.url ?? "" }],
-  //   },
-  // };
-
   return {
-    title: "Blind Alley",
-    description: "A site about stuff"
-  }
+    title: home.data.meta_title,
+    description: home.data.meta_description,
+    openGraph: {
+      title: home.data.meta_title ?? undefined,
+      images: [{ url: home.data.meta_image.url ?? "" }],
+    },
+  };
 }
 
 export default async function Index() {
@@ -41,47 +36,43 @@ export default async function Index() {
 
   // Fetch the content of the home page from Prismic
   const latestComic = await client.getAllByType("comic", {
-    orderings: [{ field: "my.comic.publish_date", direction: "desc" }],
-    limit: 1
+    orderings: [{ field: "my.comic.title", direction: "desc" }],
+    limit: 1,
   });
-  const comicDocument = latestComic[0];
 
   const firstComic = await client.getAllByType("comic", {
-    orderings: [{ field: "my.comic.publish_date", direction: "asc" }],
-    limit: 1
+    orderings: [{ field: "my.comic.title", direction: "asc" }],
+    limit: 1,
   });
-  const previousComic = await client.getAllByType("comic", {
-    orderings: [{ field: "my.comic.publish_date", direction: "desc" }],
+  const comicDocument = firstComic[0];
+
+  const nextComic = await client.getAllByType("comic", {
+    orderings: [{ field: "my.comic.title", direction: "asc" }],
     after: comicDocument.id,
-    limit: 1
+    limit: 1,
   });
 
-  const { blog_post, desktop, mobile, publish_date } = comicDocument.data;
-
-  const formattedDate = publish_date && formatDateString(publish_date.toString());
-
-  const date = prismic.asDate(publish_date)
-
-  const siteDetails = await client.getSingle("site_details");
-  const bgChangeDate = prismic.asDate(siteDetails.data.bg_change_date);
+  const { blog_post, desktop, title } = comicDocument.data;
 
   return (
-    <Layout client={client} whiteBackground={!!date && !!bgChangeDate && date < bgChangeDate}>
+    <Layout client={client}>
       <div
-        className={`${blog_post.length > 0 ? "max-w-xl m-auto" : ""
-          }`}
+        className={`${blog_post.length > 0 ? "max-w-xl m-auto" : "max-w-3xl m-auto"}`}
       >
-        <PrismicNextImage field={desktop} className="hidden md:block" fallbackAlt="" />
-        <PrismicNextImage field={mobile} className="hidden maxSm:block" fallbackAlt="" />
+        <PrismicNextImage field={desktop} className="block" fallbackAlt="" />
       </div>
       {blog_post.length > 0 && (
         <div className="py-4 mx-16 font-custom">
           <PrismicRichText field={blog_post} />
         </div>
       )}
-      <Nav label={formattedDate || ""} links={{
-        first: firstComic[0]?.url, previous: previousComic[0]?.url
-      }} />
+      <Nav
+        label={title[0]?.text || ""}
+        links={{
+          latest: latestComic[0]?.url,
+          next: nextComic[0]?.url,
+        }}
+      />
     </Layout>
   );
 }

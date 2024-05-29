@@ -1,6 +1,9 @@
 {
   "format": "page",
   "id": "site_details",
+  "label": "Site Details",
+  "repeatable": false,
+  "status": true,
   "json": {
     "Main": {
       "banner_image": {
@@ -55,13 +58,6 @@
           },
           "label": "Social Media"
         }
-      },
-      "bg_change_date": {
-        "type": "Date",
-        "config": {
-          "label": "Background Change Date",
-          "placeholder": "After this date all pages will have the tan background"
-        }
       }
     },
     "SEO & Metadata": {
@@ -91,8 +87,5 @@
         "type": "Text"
       }
     }
-  },
-  "label": "Site Details",
-  "repeatable": false,
-  "status": true
+  }
 }

@@ -21,14 +21,15 @@ export async function generateMetadata({
   const page = await client
     .getByUID("comic", params.uid)
     .catch(() => notFound());
+  const details = await client.getSingle("site_details");
 
   return {
-    title: `${prismic.asText(page.data.title)} - Blind Alley`,
+    title: `${prismic.asText(page.data.title)} -  ${details.data.meta_title}`,
     openGraph: {
       title: prismic.asText(page.data.title) || undefined,
       images: [
         {
-          url: page.data.mobile.url || "",
+          url: page.data.desktop.url || "",
         },
       ],
     },
@@ -44,38 +45,44 @@ export default async function Page({ params }: { params: Params }) {
     .catch(() => notFound());
 
   const latestComic = await client.getAllByType("comic", {
-    orderings: [{ field: "my.comic.publish_date", direction: "desc" }],
-    limit: 1
+    orderings: [{ field: "my.comic.title", direction: "desc" }],
+    limit: 1,
   });
   const firstComic = await client.getAllByType("comic", {
-    orderings: [{ field: "my.comic.publish_date", direction: "asc" }],
-    limit: 1
+    orderings: [{ field: "my.comic.title", direction: "asc" }],
+    limit: 1,
   });
-  const previousComic = comic.uid !== firstComic[0].uid ? await client.getAllByType("comic", {
-    orderings: [{ field: "my.comic.publish_date", direction: "desc" }],
-    after: comic.id,
-    limit: 1
-  }) : undefined;
-  const nextComic = comic.uid !== latestComic[0].uid ? await client.getAllByType("comic", {
-    orderings: [{ field: "my.comic.publish_date", direction: "asc" }],
-    after: comic.id,
-    limit: 1
-  }) : undefined;
+  const previousComic =
+    comic.uid !== firstComic[0].uid
+      ? await client.getAllByType("comic", {
+          orderings: [{ field: "my.comic.title", direction: "desc" }],
+          after: comic.id,
+          limit: 1,
+        })
+      : undefined;
+  const nextComic =
+    comic.uid !== latestComic[0].uid
+      ? await client.getAllByType("comic", {
+          orderings: [{ field: "my.comic.title", direction: "asc" }],
+          after: comic.id,
+          limit: 1,
+        })
+      : undefined;
   // Get all of the blog_post documents created on Prismic ordered by publication date
   const posts = await client.getSingle("site_details");
 
-  const date = prismic.asDate(comic.data.publish_date)
+  const date = prismic.asDate(comic.data.publish_date);
 
   const siteDetails = await client.getSingle("site_details");
-  const bgChangeDate = prismic.asDate(siteDetails.data.bg_change_date);
-
 
   return (
-    <Layout client={client} whiteBackground={!!date && !!bgChangeDate && date < bgChangeDate}>
+    <Layout client={client}>
       <Comic
         comicData={comic.data}
         first={firstComic[0].uid !== comic.uid ? firstComic[0]?.url : undefined}
-        latest={latestComic[0].uid !== comic.uid ? latestComic[0]?.url : undefined}
+        latest={
+          latestComic[0].uid !== comic.uid ? latestComic[0]?.url : undefined
+        }
         previous={previousComic && previousComic[0].url}
         next={nextComic && nextComic[0].url}
       />

@@ -3,7 +3,7 @@
 @tailwind utilities;
 @layer base {
   html {
-    @apply text-gray-900;
+    @apply text-primaryText;
   }
   p {
     @apply py-4 block mx-0 font-sans;

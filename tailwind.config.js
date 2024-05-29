@@ -4,7 +4,8 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        tan: "#F8F7F3",
+        tan: "#E5E2D9",
+        primaryText: "#2E3331",
       },
       screens: {
         maxSm: { max: "767px" },

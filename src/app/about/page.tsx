@@ -17,12 +17,11 @@ export async function generateMetadata({
   params: Params;
 }): Promise<Metadata> {
   const client = createClient();
-  const page = await client
-    .getSingle("about")
-    .catch(() => notFound());
+  const page = await client.getSingle("about").catch(() => notFound());
+  const details = await client.getSingle("site_details");
 
   return {
-    title: `${page.data.meta_title} - Blind Alley`,
+    title: `${page.data.meta_title} - ${details.data.meta_title}`,
     openGraph: {
       title: page.data.meta_title || undefined,
     },
@@ -33,14 +32,12 @@ export default async function Page({ params }: { params: Params }) {
   const client = createClient();
 
   // Fetch the current blog post page being displayed by the UID of the page
-  const page = await client
-    .getSingle("about")
+  const page = await client.getSingle("about");
 
   const posts = await client.getSingle("site_details");
 
-
   return (
-    <Layout client={client} whiteBackground={false}>
+    <Layout client={client}>
       <div className="font-custom">
         <div className="mx-2">
           <BackButton />
@@ -52,9 +49,3 @@ export default async function Page({ params }: { params: Params }) {
     </Layout>
   );
 }
-
-// export async function generateStaticParams() {
-//   const client = createClient();
- 
-//     return { };
-//   };

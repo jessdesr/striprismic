@@ -32,7 +32,7 @@ export default async function Page({ params }: { params: Params }) {
   });
 
   return (
-    <Layout client={client} whiteBackground={false}>
+    <Layout client={client}>
       <div className="text-center font-custom">
         <Archive comics={comics} />
       </div>

@@ -3,7 +3,6 @@ import { ComicDocumentData } from "../../../prismicio-types";
 import { PrismicNextImage } from "@prismicio/next";
 import * as prismic from "@prismicio/client";
 import Nav from "../Nav/Nav";
-import { formatDateString } from "@/utils/formatDateString";
 import Link from "next/link";
 
 interface ComicProps {

@@ -9,6 +9,7 @@ import { PrismicNextImage } from "@prismicio/next";
 import Nav from "@/components/Nav/Nav";
 import { formatDateString } from "@/utils/formatDateString";
 import { Layout } from "@/components/Layout";
+import Link from "next/link";
 
 // This component renders your homepage.
 //
@@ -59,7 +60,17 @@ export default async function Index() {
       <div
         className={`${blog_post.length > 0 ? "max-w-xl m-auto" : "max-w-3xl m-auto"}`}
       >
-        <PrismicNextImage field={desktop} className="block" fallbackAlt="" />
+        {nextComic[0] ? (
+          <Link href={nextComic[0].url!}>
+            <PrismicNextImage
+              field={desktop}
+              className="block"
+              fallbackAlt=""
+            />
+          </Link>
+        ) : (
+          <PrismicNextImage field={desktop} className="block" fallbackAlt="" />
+        )}
       </div>
       {blog_post.length > 0 && (
         <div className="py-4 mx-16 font-custom">

@@ -45,17 +45,17 @@ export default async function Page({ params }: { params: Params }) {
     .catch(() => notFound());
 
   const latestComic = await client.getAllByType("comic", {
-    orderings: [{ field: "my.comic.title", direction: "desc" }],
+    orderings: [{ field: "my.comic.page_number", direction: "desc" }],
     limit: 1,
   });
   const firstComic = await client.getAllByType("comic", {
-    orderings: [{ field: "my.comic.title", direction: "asc" }],
+    orderings: [{ field: "my.comic.page_number", direction: "asc" }],
     limit: 1,
   });
   const previousComic =
     comic.uid !== firstComic[0].uid
       ? await client.getAllByType("comic", {
-          orderings: [{ field: "my.comic.title", direction: "desc" }],
+          orderings: [{ field: "my.comic.page_number", direction: "desc" }],
           after: comic.id,
           limit: 1,
         })
@@ -63,7 +63,7 @@ export default async function Page({ params }: { params: Params }) {
   const nextComic =
     comic.uid !== latestComic[0].uid
       ? await client.getAllByType("comic", {
-          orderings: [{ field: "my.comic.title", direction: "asc" }],
+          orderings: [{ field: "my.comic.page_number", direction: "asc" }],
           after: comic.id,
           limit: 1,
         })

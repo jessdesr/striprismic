@@ -37,18 +37,18 @@ export default async function Index() {
 
   // Fetch the content of the home page from Prismic
   const latestComic = await client.getAllByType("comic", {
-    orderings: [{ field: "my.comic.title", direction: "desc" }],
+    orderings: [{ field: "my.comic.page_number", direction: "desc" }],
     limit: 1,
   });
 
   const firstComic = await client.getAllByType("comic", {
-    orderings: [{ field: "my.comic.title", direction: "asc" }],
+    orderings: [{ field: "my.comic.page_number", direction: "asc" }],
     limit: 1,
   });
   const comicDocument = firstComic[0];
 
   const nextComic = await client.getAllByType("comic", {
-    orderings: [{ field: "my.comic.title", direction: "asc" }],
+    orderings: [{ field: "my.comic.page_number", direction: "asc" }],
     after: comicDocument.id,
     limit: 1,
   });

@@ -122,6 +122,17 @@ interface ComicDocumentData {
   chapter: prismic.ContentRelationshipField<"chapter">;
 
   /**
+   * Page Number field in *Comic*
+   *
+   * - **Field Type**: Number
+   * - **Placeholder**: *None*
+   * - **API ID Path**: comic.page_number
+   * - **Tab**: Main
+   * - **Documentation**: https://prismic.io/docs/field#number
+   */
+  page_number: prismic.NumberField;
+
+  /**
    * Publish Date field in *Comic*
    *
    * - **Field Type**: Date

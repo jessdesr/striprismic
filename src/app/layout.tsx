@@ -10,6 +10,7 @@ import { usePathname } from "next/navigation";
 import { asDate } from "@prismicio/client";
 import { Didact_Gothic } from "next/font/google";
 import { GoogleAnalytics } from "@next/third-parties/google";
+import { SpeedInsights } from "@vercel/speed-insights/next";
 
 const didact = Didact_Gothic({
   weight: "400",
@@ -40,6 +41,7 @@ export default async function RootLayout({
         <PrismicPreview repositoryName={repositoryName} />
       </body>
       {process.env.GA_ID && <GoogleAnalytics gaId={process.env.GA_ID} />}
+      <SpeedInsights />
     </html>
   );
 }

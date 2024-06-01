@@ -45,37 +45,47 @@ export default async function Page({ params }: { params: Params }) {
 
   const latestComic = await client.getAllByType("comic", {
     orderings: [{ field: "my.comic.publish_date", direction: "desc" }],
-    limit: 1
+    limit: 1,
   });
   const firstComic = await client.getAllByType("comic", {
     orderings: [{ field: "my.comic.publish_date", direction: "asc" }],
-    limit: 1
+    limit: 1,
   });
-  const previousComic = comic.uid !== firstComic[0].uid ? await client.getAllByType("comic", {
-    orderings: [{ field: "my.comic.publish_date", direction: "desc" }],
-    after: comic.id,
-    limit: 1
-  }) : undefined;
-  const nextComic = comic.uid !== latestComic[0].uid ? await client.getAllByType("comic", {
-    orderings: [{ field: "my.comic.publish_date", direction: "asc" }],
-    after: comic.id,
-    limit: 1
-  }) : undefined;
+  const previousComic =
+    comic.uid !== firstComic[0].uid
+      ? await client.getAllByType("comic", {
+          orderings: [{ field: "my.comic.publish_date", direction: "desc" }],
+          after: comic.id,
+          limit: 1,
+        })
+      : undefined;
+  const nextComic =
+    comic.uid !== latestComic[0].uid
+      ? await client.getAllByType("comic", {
+          orderings: [{ field: "my.comic.publish_date", direction: "asc" }],
+          after: comic.id,
+          limit: 1,
+        })
+      : undefined;
   // Get all of the blog_post documents created on Prismic ordered by publication date
   const posts = await client.getSingle("site_details");
 
-  const date = prismic.asDate(comic.data.publish_date)
+  const date = prismic.asDate(comic.data.publish_date);
 
   const siteDetails = await client.getSingle("site_details");
   const bgChangeDate = prismic.asDate(siteDetails.data.bg_change_date);
 
-
   return (
-    <Layout client={client} whiteBackground={!!date && !!bgChangeDate && date < bgChangeDate}>
+    <Layout
+      client={client}
+      whiteBackground={!!date && !!bgChangeDate && date < bgChangeDate}
+    >
       <Comic
         comicData={comic.data}
         first={firstComic[0].uid !== comic.uid ? firstComic[0]?.url : undefined}
-        latest={latestComic[0].uid !== comic.uid ? latestComic[0]?.url : undefined}
+        latest={
+          latestComic[0].uid !== comic.uid ? latestComic[0]?.url : undefined
+        }
         previous={previousComic && previousComic[0].url}
         next={nextComic && nextComic[0].url}
       />

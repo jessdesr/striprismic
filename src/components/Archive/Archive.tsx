@@ -9,8 +9,11 @@ import { PrismicNextImage } from "@prismicio/next";
 import * as prismic from "@prismicio/client";
 import { BackButton } from "../BackButton";
 
-
-export const Archive = ({ comics }: { comics: ComicDocument[] }): JSX.Element => {
+export const Archive = ({
+  comics,
+}: {
+  comics: ComicDocument[];
+}): JSX.Element => {
   const [asList, setAsList] = useState<boolean>(false);
 
   useEffect(() => {
@@ -35,8 +38,9 @@ export const Archive = ({ comics }: { comics: ComicDocument[] }): JSX.Element =>
           >
             <span className="sr-only">Switch archive view</span>
             <span
-              className={`${asList ? "translate-x-6" : "translate-x-1"
-                } inline-block w-4 h-4 transform bg-white rounded-full transition duration-200 ease-in-out`}
+              className={`${
+                asList ? "translate-x-6" : "translate-x-1"
+              } inline-block w-4 h-4 transform bg-white rounded-full transition duration-200 ease-in-out`}
             />
           </Switch>
           <div className="flex justify-start flex-1">
@@ -44,7 +48,9 @@ export const Archive = ({ comics }: { comics: ComicDocument[] }): JSX.Element =>
           </div>
         </div>
       </div>
-      <div className={`${asList ? "" : "grid grid-cols-2 gap-4 mx-4 sm:grid-cols-3 md:grid-cols-4"}`}>
+      <div
+        className={`${asList ? "" : "grid grid-cols-2 gap-4 mx-4 sm:grid-cols-3 md:grid-cols-4"}`}
+      >
         {comics.map((comic, index) => (
           <div key={index} className="w-full mx-auto underline cursor-pointer">
             <Link
@@ -55,9 +61,8 @@ export const Archive = ({ comics }: { comics: ComicDocument[] }): JSX.Element =>
                 <PrismicNextImage field={comic.data.thumbnail} fallbackAlt="" />
               )}
               <div className="mt-2 mb-4 md:text-xl">
-                {
-                  prismic.asText(comic.data.title) + `${comic.data.publish_date && `: ${formatDateString(comic.data.publish_date?.toString())}`}`
-                }
+                {prismic.asText(comic.data.title) +
+                  `${comic.data.publish_date && `: ${formatDateString(comic.data.publish_date?.toString())}`}`}
               </div>
             </Link>
           </div>

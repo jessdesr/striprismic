@@ -31,8 +31,8 @@ export async function generateMetadata(): Promise<Metadata> {
 
   return {
     title: "Blind Alley",
-    description: "A site about stuff"
-  }
+    description: "A site about stuff",
+  };
 }
 
 export default async function Index() {
@@ -42,46 +42,59 @@ export default async function Index() {
   // Fetch the content of the home page from Prismic
   const latestComic = await client.getAllByType("comic", {
     orderings: [{ field: "my.comic.publish_date", direction: "desc" }],
-    limit: 1
+    limit: 1,
   });
   const comicDocument = latestComic[0];
 
   const firstComic = await client.getAllByType("comic", {
     orderings: [{ field: "my.comic.publish_date", direction: "asc" }],
-    limit: 1
+    limit: 1,
   });
   const previousComic = await client.getAllByType("comic", {
     orderings: [{ field: "my.comic.publish_date", direction: "desc" }],
     after: comicDocument.id,
-    limit: 1
+    limit: 1,
   });
 
   const { blog_post, desktop, mobile, publish_date } = comicDocument.data;
 
-  const formattedDate = publish_date && formatDateString(publish_date.toString());
+  const formattedDate =
+    publish_date && formatDateString(publish_date.toString());
 
-  const date = prismic.asDate(publish_date)
+  const date = prismic.asDate(publish_date);
 
   const siteDetails = await client.getSingle("site_details");
   const bgChangeDate = prismic.asDate(siteDetails.data.bg_change_date);
 
   return (
-    <Layout client={client} whiteBackground={!!date && !!bgChangeDate && date < bgChangeDate}>
-      <div
-        className={`${blog_post.length > 0 ? "max-w-xl m-auto" : ""
-          }`}
-      >
-        <PrismicNextImage field={desktop} className="hidden md:block" fallbackAlt="" />
-        <PrismicNextImage field={mobile} className="hidden maxSm:block" fallbackAlt="" />
+    <Layout
+      client={client}
+      whiteBackground={!!date && !!bgChangeDate && date < bgChangeDate}
+    >
+      <div className={`${blog_post.length > 0 ? "max-w-xl m-auto" : ""}`}>
+        <PrismicNextImage
+          field={desktop}
+          className="hidden md:block"
+          fallbackAlt=""
+        />
+        <PrismicNextImage
+          field={mobile}
+          className="hidden maxSm:block"
+          fallbackAlt=""
+        />
       </div>
       {blog_post.length > 0 && (
         <div className="py-4 mx-16 font-custom">
           <PrismicRichText field={blog_post} />
         </div>
       )}
-      <Nav label={formattedDate || ""} links={{
-        first: firstComic[0]?.url, previous: previousComic[0]?.url
-      }} />
+      <Nav
+        label={formattedDate || ""}
+        links={{
+          first: firstComic[0]?.url,
+          previous: previousComic[0]?.url,
+        }}
+      />
     </Layout>
   );
 }

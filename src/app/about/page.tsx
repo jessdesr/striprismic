@@ -17,9 +17,7 @@ export async function generateMetadata({
   params: Params;
 }): Promise<Metadata> {
   const client = createClient();
-  const page = await client
-    .getSingle("about")
-    .catch(() => notFound());
+  const page = await client.getSingle("about").catch(() => notFound());
 
   return {
     title: `${page.data.meta_title} - Blind Alley`,
@@ -33,11 +31,9 @@ export default async function Page({ params }: { params: Params }) {
   const client = createClient();
 
   // Fetch the current blog post page being displayed by the UID of the page
-  const page = await client
-    .getSingle("about")
+  const page = await client.getSingle("about");
 
   const posts = await client.getSingle("site_details");
-
 
   return (
     <Layout client={client} whiteBackground={false}>
@@ -55,6 +51,6 @@ export default async function Page({ params }: { params: Params }) {
 
 // export async function generateStaticParams() {
 //   const client = createClient();
- 
+
 //     return { };
 //   };

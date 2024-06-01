@@ -1,4 +1,3 @@
-
 export const formatDateString = (dateString: string): string => {
   const date = new Date(dateString);
   const months = [

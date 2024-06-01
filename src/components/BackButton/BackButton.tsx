@@ -2,8 +2,11 @@
 
 import { useRouter } from "next/navigation";
 
-export const BackButton = ({ className }: { className?: string }): JSX.Element => {
-
+export const BackButton = ({
+  className,
+}: {
+  className?: string;
+}): JSX.Element => {
   const router = useRouter();
 
   return (

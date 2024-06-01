@@ -19,22 +19,36 @@ interface NavProps {
     next?: any;
     first?: any;
     latest?: any;
-  }
+  };
 }
 
-const CustomLink = ({ href, children }: { href: Url, children: React.ReactNode }) => {
+const CustomLink = ({
+  href,
+  children,
+}: {
+  href: Url;
+  children: React.ReactNode;
+}) => {
   if (href) {
-    return (<Link href={href} className={"text-black"}>{children}</Link>)
+    return (
+      <Link href={href} className={"text-black"}>
+        {children}
+      </Link>
+    );
   } else {
-    return <span className="text-gray-300">{children}</span>
+    return <span className="text-gray-300">{children}</span>;
   }
-}
+};
 
 const Nav = ({ label, links = {} }: NavProps) => {
   const { previous, next, first, latest } = links;
   const router = useRouter();
-  useKeyPress("ArrowRight", () => { next && router.push(next) })
-  useKeyPress("ArrowLeft", () => { previous && router.push(previous) })
+  useKeyPress("ArrowRight", () => {
+    next && router.push(next);
+  });
+  useKeyPress("ArrowLeft", () => {
+    previous && router.push(previous);
+  });
   return (
     <div className="flex flex-wrap items-center w-full transition-transform justify-evenly">
       <CustomLink href={first}>

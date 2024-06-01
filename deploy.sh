@@ -1,6 +1,6 @@
-echo "VERCEL_GIT_COMMIT_REF: $VERCEL_GIT_COMMIT_REF";
+echo "PROJECT_NAME: $PROJECT_NAME";
 
-if [[ "$VERCEL_GIT_COMMIT_REF" == "brambles" ]] ; then
+if [[ "$PROJECT_NAME" == "brambles" ]] ; then
   # Proceed with the build
     echo "✅ - Build can proceed"
   exit 1;

@@ -22,8 +22,6 @@ const ImageGroup = ({
       field={desktop}
       className="hidden md:block"
       fallbackAlt=""
-      placeholder="blur"
-      blurDataURL="https://img.freepik.com/free-vector/exotic-fish-set_1284-16546.jpg"
     />
     <PrismicNextImage
       field={mobile}

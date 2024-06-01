@@ -1,4 +1,6 @@
-if [[ "$VERCEL_GIT_COMMIT_REF" == "blind-alley" ]] ; then
+echo "PROJECT_NAME: $PROJECT_NAME";
+
+if [[ "$PROJECT_NAME" == "blind-alley" ]] ; then
   # Proceed with the build
     echo "✅ - Build can proceed"
   exit 1;

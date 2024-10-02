@@ -17,7 +17,7 @@ const ImageGroup = ({
   desktop,
   mobile,
 }: Pick<ComicDocumentData, "desktop" | "mobile">) => (
-  <>
+  <div className="flex justify-center">
     <PrismicNextImage
       field={desktop}
       className="hidden md:block"
@@ -28,7 +28,7 @@ const ImageGroup = ({
       className="hidden maxSm:block"
       fallbackAlt=""
     />
-  </>
+  </div>
 );
 
 export const Comic = ({

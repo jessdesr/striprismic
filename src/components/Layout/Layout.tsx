@@ -24,16 +24,18 @@ export const Layout = async ({
       <div className="flex flex-col h-screen py-4 mx-auto max-w-screen-2xl">
         <header className="flex flex-col items-center">
           <Link href="/">
-            <PrismicNextImage
-              field={siteDetails.data.banner_image}
-              fallbackAlt=""
-              className="hidden md:block"
-            />
-            <PrismicNextImage
-              field={siteDetails.data.banner_mobile}
-              fallbackAlt=""
-              className="hidden maxSm:block"
-            />
+            <div className="flex justify-center">
+              <PrismicNextImage
+                field={siteDetails.data.banner_image}
+                fallbackAlt=""
+                className="hidden md:block"
+              />
+              <PrismicNextImage
+                field={siteDetails.data.banner_mobile}
+                fallbackAlt=""
+                className="hidden maxSm:block"
+              />
+            </div>
           </Link>
           <div className="w-full flex flex-row justify-evenly text-2xl">
             <Link

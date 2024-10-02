@@ -72,11 +72,13 @@ export default async function Index() {
       whiteBackground={!!date && !!bgChangeDate && date < bgChangeDate}
     >
       <div className={`${blog_post.length > 0 ? "max-w-xl m-auto" : ""}`}>
-        <PrismicNextImage
-          field={desktop}
-          className="hidden md:block"
-          fallbackAlt=""
-        />
+        <div className="flex justify-center">
+          <PrismicNextImage
+            field={desktop}
+            className="hidden md:block"
+            fallbackAlt=""
+          />
+        </div>
         <PrismicNextImage
           field={mobile}
           className="hidden maxSm:block"
